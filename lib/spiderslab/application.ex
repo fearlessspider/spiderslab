@@ -10,6 +10,7 @@ defmodule Spiderslab.Application do
     children = [
       # Starts a worker by calling: Spiderslab.Worker.start_link(arg)
       # {Spiderslab.Worker, arg}
+      Spiderslab.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
