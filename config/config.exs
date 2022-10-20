@@ -7,3 +7,5 @@ config :spiderslab, Spiderslab.Repo,
   hostname: "localhost"
 
 config :spiderslab, ecto_repos: [Spiderslab.Repo]
+
+import_config "#{Mix.env()}.exs"
