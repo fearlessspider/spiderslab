@@ -26,9 +26,8 @@ defmodule Spiderslab.MixProject do
     [
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:cowboy, "~> 2.9"},
       {:absinthe, "~> 1.7"},
-      {:absinthe_plug, "~> 1.5.8"}
     ]
   end
 

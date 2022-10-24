@@ -7,6 +7,8 @@ defmodule Spiderslab.Application do
 
   @impl true
   def start(_type, _args) do
+    start_cowboy()
+
     children = [
       # Starts a worker by calling: Spiderslab.Worker.start_link(arg)
       # {Spiderslab.Worker, arg}
@@ -17,5 +19,20 @@ defmodule Spiderslab.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Spiderslab.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  def start_cowboy() do
+    home = {"/", Spiderslab.Web.HomeHandler, []}
+    others = {:_, Spiderslab.Web.NotFoundHandler, []}
+
+    dispatch = :cowboy_router.compile([{:_, [home, others]}])
+
+    opts = [{:port, 4000}]
+    env = %{ env: %{dispatch: dispatch}}
+
+    case :cowboy.start_clear(:http, opts, env) do
+      {:ok, _pid} -> IO.puts("Cowboy is now running. Go to http://localhost:4000.")
+      _ -> IO.puts("There was an error starting Cowboy web server.")
+    end
   end
 end
