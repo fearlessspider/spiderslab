@@ -1,14 +1,14 @@
 defmodule Spiderslab.Web.HomeHandler do
-  def init({:tcp, :http}, req, _opts) do
-    {:ok, req, :empty}
-  end
+  def init(req, state) do
+    resp =
+      :cowboy_req.reply(
+        _status = 200,
+        _headers = %{"content-type" => "text/html; charset=utf-8"},
+        _body = "<h1>Welcome in Spiderslab!</h1>",
+        _request = req
+      )
 
-  def handle(req, _state) do
-    headers = [{"content-type", "text/html"}]
-    body = "<h1>Welcome to Spider's lab!</h1>"
-
-    {:ok, resp} = :cowboy_req.reply(200, headers, body, req)
-    {:ok, resp, :empty}
+    {:ok, resp, []}
   end
 
   def terminate(_reason, _req, _state) do
