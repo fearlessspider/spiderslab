@@ -22,10 +22,11 @@ defmodule Spiderslab.Application do
   end
 
   def start_cowboy() do
+    static = {"/static/[...]", :cowboy_static, {:priv_dir, :spiderslab, "static"}}
     home = {"/", Spiderslab.Web.HomeHandler, []}
     others = {:_, Spiderslab.Web.NotFoundHandler, []}
 
-    dispatch = :cowboy_router.compile([{:_, [home, others]}])
+    dispatch = :cowboy_router.compile([{:_, [static, home, others]}])
 
     opts = [{:port, 4000}]
     env = %{ env: %{dispatch: dispatch}}
