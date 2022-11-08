@@ -28,6 +28,8 @@ defmodule Spiderslab.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:cowboy, "~> 2.9"},
       {:absinthe, "~> 1.7"},
+      {:joken, "~> 2.5"},
+      {:jason, "~> 1.3"},
     ]
   end
 
