@@ -8,10 +8,16 @@ defmodule Spiderslab.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: Spiderslab.Worker.start_link(arg)
-      # {Spiderslab.Worker, arg}
+      # Start the Ecto repository
       Spiderslab.Repo,
-      {Plug.Cowboy, scheme: :http, plug: Spiderslab.Router, options: [port: cowboy_port()]}
+      # Start the Telemetry supervisor
+      SpiderslabWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Spiderslab.PubSub},
+      # Start the Endpoint (http/https)
+      SpiderslabWeb.Endpoint
+      # Start a worker by calling: Spiderslab.Worker.start_link(arg)
+      # {Spiderslab.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -20,5 +26,11 @@ defmodule Spiderslab.Application do
     Supervisor.start_link(children, opts)
   end
 
-  defp cowboy_port, do: Application.get_env(:spiderslab, :cowboy_port, 4000)
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  @impl true
+  def config_change(changed, _new, removed) do
+    SpiderslabWeb.Endpoint.config_change(changed, removed)
+    :ok
+  end
 end
