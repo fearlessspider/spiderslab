@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="csrf-token" content={csrf_token_value()}>
-    <%= live_title_tag assigns[:page_title] || "Spiderslab", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "Spider's LAB", suffix: " · Hacker's Lab" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
@@ -14,17 +14,44 @@
       <section class="container">
         <nav>
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <li><a href="/">Get Started</a></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
+        <a href="/" class="logo">
+          <h1>Spider's LAB</h1>
         </a>
       </section>
     </header>
     <%= @inner_content %>
+    <footer>
+      <div class="container">
+        <section class="row">
+          <article class="column">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+              </li>
+            </ul>
+          </article>
+          <article class="column">
+            <h2>Help</h2>
+            <ul>
+              <li>
+              </li>
+            </ul>
+          </article>
+          <article class="column">
+            <h2>Contact</h2>
+            <ul>
+              <li>
+              </li>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </footer>
   </body>
 </html>
